@@ -1,6 +1,7 @@
 import './style.css'
 import typescriptLogo from './typescript.svg'
 import { setupCounter } from './counter'
+import {pi} from "./chudnovsky";
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div>
@@ -21,3 +22,4 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 `
 
 setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+pi(1000).then(r => console.log(r))
