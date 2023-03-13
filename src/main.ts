@@ -1,25 +1,54 @@
 import './style.css'
-import typescriptLogo from './typescript.svg'
-import { setupCounter } from './counter'
 import {pi} from "./chudnovsky";
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://www.typescriptlang.org/" target="_blank">
-      <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
-    </a>
-    <h1>Vite + TypeScript</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite and TypeScript logos to learn more
-    </p>
-  </div>
-`
+document.querySelector<HTMLDivElement>('#container')!.innerHTML = ``
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
-pi(1000).then(r => console.log(r))
+let digitsOfPi = 1000;
+let currentDigit = 2;
+
+let addElement: HTMLDivElement = undefined!;
+
+function createDigit(digit: string, className: string = `c${digit}`) {
+    const element = document.createElement("div");
+    element.textContent = digit
+    element.classList.add(className)
+    document.querySelector<HTMLDivElement>('#container')!.appendChild(element);
+    return element;
+}
+
+function addButton() {
+    if (!addElement) {
+        addElement = document.createElement("div");
+        addElement.addEventListener('click', async () => {
+            const PI = await pi(++digitsOfPi);
+            showDigits(PI);
+        })
+    }
+
+    addElement.textContent = '+'
+    addElement.classList.add('cplus')
+    document.querySelector<HTMLDivElement>('#container')!.appendChild(addElement);
+    return addElement;
+}
+
+function removeAddButton() {
+    if (addElement) document.querySelector<HTMLDivElement>('#container')!.removeChild(addElement);
+}
+
+function showDigits(PI: string) {
+    removeAddButton();
+    for (; currentDigit < PI.length; currentDigit++) {
+        createDigit(PI[currentDigit])
+    }
+    addButton();
+
+}
+
+createDigit('3')
+createDigit('.', 'cdot')
+
+pi(digitsOfPi).then(PI => {
+    showDigits(PI)
+});
+
+
