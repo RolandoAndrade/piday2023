@@ -24,6 +24,13 @@ header {
   margin-bottom: 5px;
   position: sticky;
   top: 0px;
+  z-index: 9999;
+}
+
+header > h1 {
+  margin: 0;
+  font-size: 1.5em;
+  font-weight: 500;
 }
 
 .c0 {
@@ -85,14 +92,25 @@ header {
   gap: 5px 5px;
 }
 
-#container > div {
+.piDigit {
+  z-index: 3;
   font-size: 200%;
   flex: 1 1 auto;
   justify-content: center;
   align-items: center;
   display: flex;
+  position: relative;
 }
 
-#container > div:hover {
+.piDigit:hover {
   opacity: 0.8;
+}
+
+.digitCount {
+  position: absolute;
+  float: right;
+  font-size: 10px;
+  top: 0;
+  right: 0;
+  margin-right: 5px;
 }

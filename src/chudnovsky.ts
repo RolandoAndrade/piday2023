@@ -57,13 +57,13 @@ async function computePQT(n1: BigNumber, n2: BigNumber) {
 
 export async function pi(digits: number = 15) {
     const digitsBN = new BigNumber(digits)
-    const iterations = digitsBN.dividedToIntegerBy(DIGITS_PER_ITERATION).plus(1)
+    const batches = digitsBN.dividedToIntegerBy(DIGITS_PER_ITERATION).plus(1)
     const precision = digitsBN.multipliedBy(Math.log2(10))
     BigNumber.config({
         DECIMAL_PLACES: Math.ceil(precision.toNumber()),
         POW_PRECISION: Math.ceil(precision.toNumber()),
     });
-    const PQT = await computePQT(new BigNumber(0), iterations)
+    const PQT = await computePQT(new BigNumber(0), batches)
 
     let PI = D.multipliedBy(E.sqrt()).multipliedBy(PQT.Q)
     PI = PI.dividedBy(A.multipliedBy(PQT.Q).plus(PQT.T))
