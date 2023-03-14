@@ -41,6 +41,7 @@ function addButton() {
     }
 
     addElement.textContent = '+'
+    addElement.classList.add('piDigit')
     addElement.classList.add('cplus')
     document.querySelector<HTMLDivElement>('#container')!.appendChild(addElement);
     return addElement;
